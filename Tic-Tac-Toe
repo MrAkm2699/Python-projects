@@ -1,0 +1,322 @@
+/////code/////
+
+from random import randint
+import random
+print('*****************TIC TAC TOE (2 PLAYER GAME)*******************')
+
+import os
+
+def clear():
+    print('\n'*100)
+
+
+
+def display_board( board ): 
+    clear()
+    print('The current board looks like : ')
+    print('      ',board[7],"  | ", board[8]," | ", board[9])
+    print("       ---","|", "---","|", "---")
+    print('      ',board[4],"  | ", board[5]," | ", board[6])
+    print("       ---","|", "---","|", "---")
+    print('      ',board[1],"  | ", board[2]," | ", board[3])
+
+     
+#display_board(board)
+def player_input():
+    
+    marker_choice=['X','x','o','O']
+    marker = input("Player 1 choose your marker :").upper()
+    
+    while marker not in marker_choice:
+        marker = input('Choose either of the 2 choices (X or O) ')
+    if marker=='X':
+        return ('X','O')
+    else :
+        return ('O','X')
+    
+
+def place_marker(board, marker, position):
+    if space_check(board, position):
+        board[position]=marker.upper()
+        
+
+def win_check(board, mark):
+    if board[1]==board[2]==board[3]==mark  or board[4]==board[5]==board[6]==mark or board[7]==board[8]==board[9]==mark or board[1]==board[4]==board[7]==mark or board[2]==board[5]==board[8]==mark or board[9]==board[6]==board[3]==mark or board[1]==board[5]==board[9]==mark or board[7]==board[5]==board[3]==mark :
+        return True
+    
+
+
+def space_check(board, position):
+    if board[position]!=' ' :
+        return False
+    return True
+        
+
+def player_choice(board):
+    var=True
+    pos_limit=[1,2,3,4,5,6,7,8,9]
+    try:
+        while var: 
+            position = int(input('Choose the location to mark ( Mark location from 1-9 as per numpad  ) : '))
+            while position not in pos_limit:# or type(int(position))!=int: #or not int:
+                    position = int(input('Location not in range! Enter location from 1-9 : '))
+            if space_check(board, position) :
+                    var=False
+        return position            
+    except:
+        print('Enter integer value (1-9)!')
+            
+        
+
+
+def replay():
+    ans_rang=['Y','N','y','n']
+    answer = input('Do you want to play again !! (Y or N) : ')
+    while answer not in ans_rang:
+        answer= input('Enter Y or N only : ')
+    if answer == 'N' or answer=='n' :
+        print('Thanks for playing')
+        return True
+    return False
+
+
+def full_board_check(board):
+    full_check=0
+    for i in range(1,10):
+        if board[i].isalpha() :
+            full_check+=1
+    if full_check==9 :
+        return True
+    else :
+        return False
+
+
+def choose_first():
+    k=randint(1,2)
+    if k==1:
+        return 'Player 1'
+    else :
+        return 'Player 2'
+    
+
+while True :
+    board=[' ']*10
+    player1, player2 = player_input()
+    chance = choose_first()
+    print(chance,'will go first ')
+    
+    game=input('Ready to play!! Y or N')
+    
+    if game=='Y' or game=="y":
+        play=True
+    else:
+        play=False
+    
+    
+    while play :
+        if chance=='Player 1' :
+            print('Player 1 its your turn ')
+            position = player_choice(board)
+            place_marker(board, player1, position)
+            display_board(board)
+            if win_check(board, player1):
+                print('Player 1 won the game')
+                play=False
+            else :
+                if full_board_check(board):
+                    print('Its a draw ! Well played')
+                    play=False
+                else :
+                    chance='Player 2'
+            
+        else :
+            print('Player 2 its your turn ')
+            position = player_choice(board)
+            place_marker(board, player2, position)
+            display_board(board)
+            if win_check(board, player2):
+                print('Player 2 won the game')
+                play=False
+            else :
+                if full_board_check(board):
+                    print('Its a draw ! Well played')
+                    play=False
+                else :
+                    chance='Player 1'
+            
+    if replay() :
+        break
+        
+        
+        
+##########my code//////////
+#asks permision to play every move
+#corrected location of marked position code
+#doesnt clear OP screen 
+#above one is better if not messed with inputs given :)
+
+
+print('*****************TIC TAC TOE (2 PLAYER GAME)*******************')
+
+import os
+
+def clear():
+    print('\n'*100)
+
+board=['A',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+
+def display_board( board ): 
+    clear()
+    print('The current board looks like : ')
+    print('      ',board[7],"  | ", board[8]," | ", board[9])
+    print("       ---","|", "---","|", "---")
+    print('      ',board[4],"  | ", board[5]," | ", board[6])
+    print("       ---","|", "---","|", "---")
+    print('      ',board[1],"  | ", board[2]," | ", board[3])
+
+     
+#display_board(board)
+def player_input():
+    
+    marker_choice=['X','x','o','O']
+    marker = input("Enter the marker you want to play : ")
+    
+    while marker not in marker_choice:
+      
+        if marker == False or marker not in marker_choice:
+            marker = input('Choose either of the 2 choices (X or O) ')
+        
+    return marker
+
+def place_marker(board, marker, position):
+    if space_check(board, position):
+        board[position]=marker.upper()
+        
+
+def win_check(board, mark):
+    if board[1]==board[2]==board[3]!=' '  or board[4]==board[5]==board[6]!=' ' or board[7]==board[8]==board[9]!=' ' or board[1]==board[4]==board[7]!=' ' or board[2]==board[5]==board[8]!=' ' or board[9]==board[6]==board[3]!=' ' or board[1]==board[5]==board[9]!=' ' or board[7]==board[5]==board[3]!=' ' :
+        return True
+    
+
+
+def space_check(board, position):
+    if board[position]!=' ' :
+        print('Already marked location ! Mark at vacant location ')
+        return False
+    return True
+        
+
+def player_choice(board):
+    var=True
+    pos_limit=[1,2,3,4,5,6,7,8,9]
+    try:
+        while var: 
+            position = int(input('Choose the location to mark ( Mark location from 1-9 as per numpad  ) : '))
+            while position not in pos_limit:# or type(int(position))!=int: #or not int:
+                    position = int(input('Location not in range! Enter location from 1-9 : '))
+            if space_check(board, position) :
+                    var=False
+        return position            
+    except:
+        print('Enter integer value (1-9)!')
+            
+        
+
+
+def replay():
+    ans_rang=['Y','N','y','n']
+    answer = input('Do you want to play again !! (Y or N) : ')
+    while answer not in ans_rang:
+        answer= input('Enter Y or N only : ')
+    if answer == 'N' or answer=='n' :
+        print('Thanks for playing')
+        return True
+    return False
+
+
+def full_board_check(board):
+    full_check=0
+    for i in range(1,10):
+        if board[i].isalpha() :
+            full_check+=1
+    if full_check==9 :
+        return True
+    else :
+        return False
+
+
+def choose_first():
+    k=randint(1,2)
+    return k
+    
+
+k=choose_first()
+#print('Player', k,'goes first')
+while True :
+    print('Player', k,' play')
+    
+    mark=player_input()   
+    position = player_choice(board)
+    place_marker(board, mark, position)
+    display_board(board)
+    if win_check(board, mark):
+        print('Player ', k, 'won the game')
+        #clear()
+        break
+    if full_board_check(board):
+        print('Its a draw ! Well played')
+        #clear()
+        break
+    if replay() :
+        break
+    #clear()
+    
+    print('Player', k,' play')
+    marker=player_input()   
+    position = player_choice(board)
+    place_marker(board, marker, position)
+    display_board(board)
+    if win_check(board, mark):
+        print('Kudos!! Player', k, 'won the game')
+        #clear()
+        break
+    if full_board_check(board):
+        print('Its a draw ! Well played')
+        #clear()
+        break
+    if replay() :
+        break
+    
+
+    
+    
+    
+
+
+    
+    
+
+   
+   
+
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+
+    
+    
