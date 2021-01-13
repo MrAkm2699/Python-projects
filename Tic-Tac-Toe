@@ -20,8 +20,6 @@ def display_board( board ):
     print("       ---","|", "---","|", "---")
     print('      ',board[1],"  | ", board[2]," | ", board[3])
 
-     
-#display_board(board)
 def player_input():
     
     marker_choice=['X','x','o','O']
@@ -65,9 +63,6 @@ def player_choice(board):
         return position            
     except:
         print('Enter integer value (1-9)!')
-            
-        
-
 
 def replay():
     ans_rang=['Y','N','y','n']
